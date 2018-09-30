@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { StatusComponent } from './status/status.component';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {SuiModule} from 'ng2-semantic-ui';
 
 const appRoutes: Routes = [
   {
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
-    )
+    ),
+    SuiModule
   ],
   providers: [],
   bootstrap: [AppComponent]

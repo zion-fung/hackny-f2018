@@ -14,13 +14,13 @@
 }
 .send {
     float:right;
-    background-color: red;
+    /* background-color: red; */
 }
 .top {
     display: inline-block;
     /* background-color:lightblue; */
 }
 .bottom {
-    background-color: lightblue;
-    
+    /* background-color: lightblue; */
+    padding-right: 10px;
 }

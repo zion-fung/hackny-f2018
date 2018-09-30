@@ -35,3 +35,7 @@
 .questions {
     margin: auto;
 }
+.modalContent {
+    padding: 20px;
+    background-color: lightgray;
+}

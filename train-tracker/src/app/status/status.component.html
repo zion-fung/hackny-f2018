@@ -1,33 +1,53 @@
+<sui-modal *ngIf="showModal" class="modal" isClosable="true" (dismissed)="showModal=false" (approved)="recordResults()" #modal>
+        <div class="header">
+            Train Questions
+        </div>
+        <div class="modalContent">
+            <div class="ui list" style="margin:auto;">
+                <a class="item">
+                    <sui-checkbox class="toggle" name="time" (checkChange)="changeTime($event)">
+                        On Time?
+                    </sui-checkbox>
+                </a>
+                <a class="item">
+                    <sui-checkbox class="toggle" name="crowded" (checkChange)="changeCrowded($event)">
+                        Crowded?
+                    </sui-checkbox>
+                </a>
+            </div>
+        </div>  
+        <div class="actions">    
+            <div class="ui button" (click)="modal.approve()">Submit</div>
+            <div class="ui checkbox"></div>
+        </div>
+    </sui-modal>
 <div class="status">
-        <div class="ui {{dimScreen}} dimmer" style="z-index: 1"></div>
+        <!-- <div class="ui {{dimScreen}} dimmer" style="z-index: 1"></div> -->
     <div class="navigation">
-        <button class="ui huge icon button">
+        <button class="ui huge icon button" routerLink="/home">
             <i class="long arrow alternate left icon"></i>
         </button>
     </div>
     <div class="table">
-        
         <table class="ui celled table">
             <thead>
                 <tr>
-                    <th>name</th>
-                    <th>password</th>
+                    <th>Predicted Time</th>
+                    <th>Scheduled Time</th>
+                    <th>Difference</th>
                 </tr>
             </thead>
             <tbody>
-                <tr (click)="openModal()" class="rows">
-                    <td>John Smith</td>
-                    <td>1234</td>
-                </tr>
-                <tr>
-                    <td>John Doe</td>
-                    <td>4321</td>
+                <tr (click)="showModal=true" class="rows" *ngFor="let d of data">
+                    <td>d["predicted"]</td>
+                    <td>d["scheduled"]</td>
+                    <td>d["difference"]</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
-<div class="modal">
+<!-- <div class="modal">
     <div class="ui {{modalStatus}} modal">
         <button class="ui icon button" (click)="closeModal()" style="float:right">
             <i class="close icon"></i>
@@ -55,4 +75,4 @@
             <div class="ui checkbox"></div>
         </div>
     </div>
-</div>
+</div> -->
