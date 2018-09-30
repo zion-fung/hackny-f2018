@@ -13,7 +13,7 @@
             <!-- <div class="ui massive input">
                 <input type="text" placeholder="Destination" (input)="destination=$event.target.value">
             </div>            -->
-            <sui-select class="selection" placeholder="Train" (selectedOptionChange)="setTrain($event)" style="position:relative;left:405px;padding:20px">
+            <sui-select class="selection" placeholder="Train" (selectedOptionChange)="setTrain($event)" style="position:relative;left:225px;bottom:75px;padding:20px">
                     <sui-select-option *ngFor="let train of train_options" [value]="train.name"></sui-select-option>
             </sui-select>
             <div class="send">

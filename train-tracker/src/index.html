@@ -14,6 +14,7 @@
     <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
   <app-root></app-root>
   <!-- <div id="inputs"> -->
+  <div class="parent">
   <div class="start" *ngIf="Outside.showInputs" [ngStyle]="">
       <input class="start-input" type="input" id="start-input" placeholder="Origin" />
       <script src="https://cdn.jsdelivr.net/npm/places.js@1.11.0"></script>
@@ -40,6 +41,7 @@
         });
         placesAutocomplete.on("change", e => fetch("http://localhost:5000/autofill?type=end&start=" + e.suggestion.name));
     </script>
+  </div>
   </div>
   <!-- </div> -->
 </body>
