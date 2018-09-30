@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+.end {
+    width:15%;
+    position: absolute;
+    bottom: 397px;
+    left: 320px;
+}
+.start {
+    width:15%;
+    position: absolute;
+    bottom: 470px;
+    left: 725px;
+}

@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit {
     train = "Train"
     tokens = 0;
     submit() {
+        Global.tokens--;
+        this.tokens = Global.tokens;
         // Basic form validation
         if(this.origin == "" || this.destination == "" || this.train == "Train") {
             alert("You must specify an origin, destination, and train");
@@ -43,9 +45,10 @@ export class HomeComponent implements OnInit {
         Global.origin = this.origin + direction;
         Global.destination = this.destination;
         Global.train = this.train;
-        Global.tokens--;
         this.http.post("http://localhost:5000/station-line-info", {"feed_id": Global.line_feeds[Global.train], "station_id": Global.origin}).subscribe(
             data => {
+                // Clear old data first
+                Global.data = [];
                 for(const i of Object.keys(data)) {
                     Global.data.push(data[i]);
                 }

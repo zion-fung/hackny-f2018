@@ -37,13 +37,15 @@
                         <th>Predicted Time</th>
                         <th>Scheduled Time</th>
                         <th>Difference</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr (click)="openModal()" class="rows" *ngFor="let d of data">
+                    <tr (click)="openModal($event.target.parentElement.id)" class="rows" *ngFor="let d of data" [id]="d.id">
                         <td>{{d["predicted"]}}</td>
                         <td>{{d["scheduled"]}}</td>
                         <td>{{d["difference"]}}</td>
+                        <td>{{d["score"]}}</td>
                     </tr>
                 </tbody>
             </table>

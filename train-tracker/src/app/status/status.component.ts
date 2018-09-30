@@ -30,15 +30,18 @@ export class StatusComponent implements OnInit {
     crowded = false;
     showModal = false;
     submission = false;
+    train_id = ""
     closeModal() {
 
     }
-    openModal() {
+    openModal(data) {
         if(!this.submission) {
             this.showModal = true;
         } else {
             alert("You only get 1 feedback per search");
         }
+        this.train_id = data;
+        console.log("Train id:", data);
     }
     changeCrowded(value) {
         this.crowded = value;
@@ -51,5 +54,44 @@ export class StatusComponent implements OnInit {
         this.tokens++;
         Global.tokens++;
         this.submission = true;
+        const timeBody = {
+            "train_id": Number(this.train_id),
+            "status": this.onTime
+        };
+        const crowdedBody = {
+            "train_id": Number(this.train_id),
+            "status": !this.crowded
+        };
+        // console.log(timeBody);
+        // console.log(crowdedBody);
+        this.http.post("http://localhost:5000/train-status", timeBody).subscribe(
+            result => {
+                console.log("Train id:", this.train_id, "now at", result);
+            }, error => {
+                console.log("Error:", error);
+            }
+        );
+        this.http.post("http://localhost:5000/train-status", crowdedBody).subscribe(
+            result => {
+                console.log("Train id:", this.train_id, "now at", result);
+            }, error => {
+                console.log("Error:", error);
+            }
+        );
+        this.updateData();
+    }
+    updateData() {
+        this.http.post("http://localhost:5000/station-line-info", {"feed_id": Global.line_feeds[Global.train], "station_id": Global.origin}).subscribe(
+            data => {
+                // Clear old data first
+                Global.data = [];
+                for(const i of Object.keys(data)) {
+                    Global.data.push(data[i]);
+                }
+                this.data = Global.data.slice(0);
+            }, error => {
+                alert("Error processing data");
+            }
+        )
     }
 }

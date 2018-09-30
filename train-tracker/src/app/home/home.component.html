@@ -1,64 +1,24 @@
 <div class="background">
 <div class="ui label" style="position:absolute;top:0;right:0;font-size:24px">Tokens: {{tokens}}</div>
-<div class="home">
-    <div class="input">
+    <div class="home">
         <div class="top">
-            <div class="ui input">
-                <input type="text" placeholder="From..." (input)="origin=$event.target.value">
-            </div>
-            <div class="ui button">
+            <!-- <div class="ui massive input">
+                <input type="text" placeholder="Origin" (input)="origin=$event.target.value">
+            </div> -->
+            <!-- <div class="ui button" style="padding:15px;position:relative;left:10px;">
                 Locate me!
-            </div>
+            </div> -->
         </div>
-            
         <div class="bottom">
-            <div class="ui input">
-                <input type="text" placeholder="To..." (input)="destination=$event.target.value">
-            </div>           
-            <sui-select class="selection" placeholder="Train" (selectedOptionChange)="setTrain($event)"
-            >
+            <!-- <div class="ui massive input">
+                <input type="text" placeholder="Destination" (input)="destination=$event.target.value">
+            </div>            -->
+            <sui-select class="selection" placeholder="Train" (selectedOptionChange)="setTrain($event)" style="position:relative;left:405px;padding:20px">
                     <sui-select-option *ngFor="let train of train_options" [value]="train.name"></sui-select-option>
             </sui-select>
-            <!-- <div class="ui pointing dropdown link item" suiDropdown style="padding-left:15px;"> 
-                    <span class="text">{{train}}</span>
-                    <i class="dropdown icon"></i>
-                    <div class="menu" suiDropdownMenu>
-                        <div class="item" suiDropdown>
-                            <i class="dropdown icon"></i>
-                            <span class="text">Numberical</span>
-                            <div class="menu" suiDropdownMenu>
-                                <div id="1" class="item" (click)="setTrain($event.target.id)">1</div>
-                                <div class="item" (click)="setTrain($event.target.id)" id="2">2</div>
-                                <div class="item" (click)="setTrain($event.target.id)" id="3">3</div>
-                                <div class="item" (click)="setTrain($event.target.id)" id="4">4</div>
-                                <div class="item" (click)="setTrain($event.target.id)" id="5">5</div>
-                                <div class="item" (click)="setTrain($event.target.id)" id="6">6</div>
-                                <div class="item" (click)="setTrain($event.target.id)" id="7">7</div>
-                            </div>
-                        </div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="A">A</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="B">B</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="C">C</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="D">D</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="E">E</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="F">F</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="G">G</div>        
-                        <div class="item" (click)="setTrain($event.target.id)" id="J">J</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="L">L</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="M">M</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="N">N</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="Q">Q</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="R">R</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="S">S</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="W">W</div>
-                        <div class="item" (click)="setTrain($event.target.id)" id="Z">Z</div>
-                    </div>
-                </div> -->
             <div class="send">
-                <div class="ui green button" (click)="submit()">Go!</div>
+                <div class="ui massive fluid green button" (click)="submit()">Go!</div>
             </div>  
         </div>
-        
     </div>
-</div>
 </div>

@@ -8,6 +8,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+train_data = {}
 
 # @app.route("/")
 # def hello_world():
@@ -31,14 +32,46 @@ def distance():
     print(stop)
     return stop
 
+@app.route("/train-status", methods=["POST", "GET"])
+def change_status():
+    if request.method == "POST":
+        params = request.get_json(force=True)
+        train_id = params["train_id"]
+        status = params["status"]
+        if train_id in train_data:
+            if status:
+                train_data[train_id] += 1
+            else:
+                train_data[train_id] -= 1
+        else:
+            if status:
+                train_data[train_id] = 1
+            else:
+                train_data[train_id] = -1
+        return str(train_data[train_id])
+    else:
+        train_id = int(request.args.get("train_id"))
+        print("Searching:", train_id)
+        print(train_data)
+        print(train_id in train_data)
+        return get_train_score(train_id)
 
+def get_train_score(train_id):
+    try:
+        return str(train_data[train_id])
+    except KeyError:
+        return "DNE"
 # User will give a line feed and a station id
 @app.route("/station-line-info", methods=["POST"])
-def post_test():
+def get_all():
     # valid feeds are 1, 26, 16, 21, 2, 11, 31, 36, 51
     params = request.get_json(force=True)
     train_data = mta.get_train_data(params["feed_id"])
-    station_times = mta.station_time_lookup(train_data, params["station_id"])
+    # Now includes train id
+    station_data = mta.station_time_lookup(train_data, params["station_id"])
+    # print(station_data)
+    station_times = station_data[0]
+    ids = station_data[1]
     data = {
         "station_times": [],
         # "schedule_times": mta.get_schedule("Saturday", params["station_id"]),
@@ -51,12 +84,15 @@ def post_test():
     data["station_times"].sort()
     # returns a tuple with the late times and the scheduled times
     late_times = mta.get_late_times(mta.get_schedule("Sunday", params["station_id"]), data["station_times"])
-    print(late_times)
+    # print(late_times)
     data["late_times"] = late_times[0]
     data["schedule_times"] = late_times[1]
     response = []
     for index in range(len(data["station_times"])):
-        response.append({"predicted": data["station_times"][index], "scheduled": data["schedule_times"][index], "difference": data["late_times"][index]})
+        train_id = ids[index]
+        score = get_train_score(int(train_id))
+        print(score)
+        response.append({"predicted": data["station_times"][index], "scheduled": data["schedule_times"][index], "difference": data["late_times"][index], "id": train_id, "score": score})
     return jsonify(response)
 
 
@@ -84,6 +120,23 @@ def epoch_to_time(time):
     tz = pytz.timezone('America/New_York')
     return datetime.fromtimestamp(time, tz).strftime('%H:%M:%S')
 
+start = ""
+end = ""
+@app.route('/autofill')
+def station():
+   start = request.args.get("start")
+   resp_type = request.args.get("type")
+   if resp_type == "start":
+       start = start;
+   else:
+       end = end;
+#    print(start)
+   return start
+
+@app.route("/locations")
+def get_locations():
+    loc = {"start": start, "end": end}
+    return jsonify(loc)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+import math
 import pytz
 from google.transit import gtfs_realtime_pb2
 import requests
@@ -32,17 +33,19 @@ def get_train_data(feed_id):
 # of any instance of the station ID to the collected_times list
 def station_time_lookup(train_data, station):
     collected_times = []
+    ids = []
     for trains in train_data: # trains are dictionaries
         if trains.get('trip_update', False) != False:
             unique_train_schedule = trains['trip_update'] # train_schedule is a dictionary with trip and stop_time_update
             unique_arrival_times = unique_train_schedule['stop_time_update'] # arrival_times is a list of arrivals
             for scheduled_arrivals in unique_arrival_times: #arrivals are dictionaries with time data and stop_ids
-                if scheduled_arrivals.get('stop_id', False) == station:
+                if scheduled_arrivals.get('stop_id', False) == station: 
                     time_data = scheduled_arrivals['arrival']
                     unique_time = time_data['time']
                     if unique_time != None:
                         collected_times.append(unique_time)
-    return collected_times
+                        ids.append(trains["id"])
+    return collected_times, ids
 
 # collected_times = station_time_lookup(realtime_data, "701S")
 
@@ -71,7 +74,10 @@ def get_late_times(schedule, real_time):
         seconds1 = int(times1[0]) * 3600 + int(times1[1]) * 60 + int(times1[2])
         seconds2 = int(times2[0]) * 3600 + int(times2[1]) * 60 + int(times2[2])
         difference_seconds = seconds2 - seconds1
-        return time.strftime('%H:%M:%S', time.gmtime(difference_seconds * -1))
+        result = time.strftime('%H:%M:%S', time.gmtime(abs(difference_seconds)))
+        if difference_seconds > 0:
+            return "- " + result
+        return result
     late_times = []
     start = 0
     schedule_times = len(schedule)
@@ -83,9 +89,17 @@ def get_late_times(schedule, real_time):
             index += 1
         # Get the time before
         index -= 1
+        # If you end up comparing to the same scheduled time as the last one, move to the next
+        print("Scheduled:", schedule[index])
+        if len(scheduled_times) > 0:
+            print("Previous Scheduled:", scheduled_times[-1])
+            if str(schedule[index]) == str(scheduled_times[-1]):
+                print("Incremented!")
+                index += 1
         start = index
         difference = time_subtraction(real, schedule[index])
         scheduled_times.append(schedule[index])
         print("Difference:", difference)
+        print("------------")
         late_times.append(difference)
     return late_times, scheduled_times
