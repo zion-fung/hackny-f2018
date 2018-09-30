@@ -1,3 +1,5 @@
+<div class="background">
+<div class="ui label" style="position:absolute;top:0;right:0;font-size:24px">Tokens: {{tokens}}</div>
 <div class="home">
     <div class="input">
         <div class="top">
@@ -13,7 +15,11 @@
             <div class="ui input">
                 <input type="text" placeholder="To..." (input)="destination=$event.target.value">
             </div>           
-            <div class="ui pointing dropdown link item" suiDropdown style="padding-left:15px;">
+            <sui-select class="selection" placeholder="Train" (selectedOptionChange)="setTrain($event)"
+            >
+                    <sui-select-option *ngFor="let train of train_options" [value]="train.name"></sui-select-option>
+            </sui-select>
+            <!-- <div class="ui pointing dropdown link item" suiDropdown style="padding-left:15px;"> 
                     <span class="text">{{train}}</span>
                     <i class="dropdown icon"></i>
                     <div class="menu" suiDropdownMenu>
@@ -47,11 +53,12 @@
                         <div class="item" (click)="setTrain($event.target.id)" id="W">W</div>
                         <div class="item" (click)="setTrain($event.target.id)" id="Z">Z</div>
                     </div>
-                </div>
+                </div> -->
             <div class="send">
-                <div class="ui green button" routerLink="/status" (click)="submit()">Go!</div>
+                <div class="ui green button" (click)="submit()">Go!</div>
             </div>  
         </div>
         
     </div>
+</div>
 </div>

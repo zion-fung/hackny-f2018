@@ -75,6 +75,7 @@ def get_late_times(schedule, real_time):
     late_times = []
     start = 0
     schedule_times = len(schedule)
+    scheduled_times = []
     for real in real_time:
         print("Getting late time for:", real)
         index = start
@@ -84,6 +85,7 @@ def get_late_times(schedule, real_time):
         index -= 1
         start = index
         difference = time_subtraction(real, schedule[index])
+        scheduled_times.append(schedule[index])
         print("Difference:", difference)
         late_times.append(difference)
-    return late_times
+    return late_times, scheduled_times

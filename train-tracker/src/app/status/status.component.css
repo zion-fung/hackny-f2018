@@ -1,11 +1,12 @@
 .table {
-    padding: 15px;
+    /* padding: 15px; */
     /* position: relative;
     top: -20px; */
-    width: 80%;
-    margin: auto;
+    width: 65%;
     position: relative;
-    top: -30px;
+    margin-top: 25px;
+    left: 10%;
+    /* right:6%; */
     /* z-index: -1; */
 }
 .navigation {
@@ -38,4 +39,11 @@
 .modalContent {
     padding: 20px;
     background-color: lightgray;
+}
+.background {
+    background-image: url("/assets/Background-02.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center; 
+    height: 100%;
 }
