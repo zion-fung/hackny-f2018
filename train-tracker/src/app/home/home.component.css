@@ -1,0 +1,26 @@
+.input {
+    /* display: block; */
+    padding: 10px;
+    /* background-color:lightblue; */
+    position: relative;
+    top: 1px;
+}
+.home {
+    margin: auto;
+    width: 50%;
+    margin-top: 150px;
+    border: 3px dashed black;
+    padding: 15px
+}
+.send {
+    float:right;
+    background-color: red;
+}
+.top {
+    display: inline-block;
+    /* background-color:lightblue; */
+}
+.bottom {
+    background-color: lightblue;
+    
+}

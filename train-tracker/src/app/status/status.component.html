@@ -1,0 +1,58 @@
+<div class="status">
+        <div class="ui {{dimScreen}} dimmer" style="z-index: 1"></div>
+    <div class="navigation">
+        <button class="ui huge icon button">
+            <i class="long arrow alternate left icon"></i>
+        </button>
+    </div>
+    <div class="table">
+        
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>password</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr (click)="openModal()" class="rows">
+                    <td>John Smith</td>
+                    <td>1234</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>4321</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal">
+    <div class="ui {{modalStatus}} modal">
+        <button class="ui icon button" (click)="closeModal()" style="float:right">
+            <i class="close icon"></i>
+        </button>
+        <div class="header">
+            Train Questions
+        </div>
+        
+        <div class="ui list" style="margin:auto;width:30%;padding-top:30px">
+            <a class="item">
+                <div class="ui big horizontal label">On time?</div>
+                <div class="ui checkbox">
+                <input type="checkbox">
+                </div>
+            </a>
+            <a class="item">
+                <div class="ui big horizontal label">Crowded?</div>
+                <div class="ui toggle checkbox" name="public">
+                    <input type="checkbox">
+                </div>
+            </a>
+        </div>
+        <div style="position:absolute;right:10px;bottom:10px">    
+            <div class="ui button" (click)="closeModal()">Submit</div>
+            <div class="ui checkbox"></div>
+        </div>
+    </div>
+</div>
