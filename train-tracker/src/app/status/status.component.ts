@@ -20,8 +20,8 @@ export class StatusComponent implements OnInit {
     ngOnInit() {
         // this.start_html = document.querySelector("#start").innerHTML;
         // this.end_html = document.querySelector("#end").innerHTML;
-        this.end_html = document.getElementsByClassName("end")[0].innerHTML;
-        this.start_html = document.getElementsByClassName("start")[0].innerHTML;
+        // this.end_html = document.getElementsByClassName("end")[0].innerHTML;
+        // this.start_html = document.getElementsByClassName("start")[0].innerHTML;
         document.getElementsByClassName("end")[0].innerHTML = "";
         document.getElementsByClassName("start")[0].innerHTML = "";
         this.tokens = Global.tokens;
@@ -34,9 +34,17 @@ export class StatusComponent implements OnInit {
     goBack() {
         // document.querySelector("#start").innerHTML = this.start_html;
         // document.querySelector("#end").innerHTML = this.end_html;
-        document.getElementsByClassName("end")[0].innerHTML = this.end_html;
-        document.getElementsByClassName("start")[0].innerHTML = this.start_html;
+        // document.getElementsByClassName("end")[0].innerHTML = this.end_html;
+        // document.getElementsByClassName("start")[0].innerHTML = this.start_html;
         this.router.navigate(["/home"]);
+        window.location.reload();   
+        // this.http.get("http://localhost:5000/").subscribe(
+        //     data => {
+
+        //     }, error => {
+
+        //     }
+        // )
     }
     test() {
         console.log("Hello world");

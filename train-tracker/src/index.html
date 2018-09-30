@@ -15,11 +15,12 @@
   <app-root></app-root>
   <!-- <div id="inputs"> -->
   <div class="start" *ngIf="Outside.showInputs" [ngStyle]="">
-      <input type="input" id="start-input" placeholder="Origin" />
+      <input class="start-input" type="input" id="start-input" placeholder="Origin" />
       <script src="https://cdn.jsdelivr.net/npm/places.js@1.11.0"></script>
       <script>
           var placesAutocomplete = places({
-              container: document.querySelector('#start-input'),
+              // container: document.querySelector('#start-input'),
+              container: document.getElementsByClassName("start-input")[0],
               type: "trainStation",
               countries: ["US"],
               aroundRadius: 100000
