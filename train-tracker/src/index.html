@@ -13,7 +13,8 @@
 <body>
     <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
   <app-root></app-root>
-  <div class="start">
+  <!-- <div id="inputs"> -->
+  <div class="start" *ngIf="Outside.showInputs" [ngStyle]="">
       <input type="input" id="start-input" placeholder="Origin" />
       <script src="https://cdn.jsdelivr.net/npm/places.js@1.11.0"></script>
       <script>
@@ -26,7 +27,7 @@
           placesAutocomplete.on("change", e => fetch("http://localhost:5000/autofill?type=start&start=" + e.suggestion.name));
       </script>
   </div>
-  <div class="end">
+  <div class="end" *ngIf="Outside.showInputs">
   <input type="input" id="end-input" placeholder="Destination" />
     <script src="https://cdn.jsdelivr.net/npm/places.js@1.11.0"></script>
     <script>
@@ -39,5 +40,6 @@
         placesAutocomplete.on("change", e => fetch("http://localhost:5000/autofill?type=end&start=" + e.suggestion.name));
     </script>
   </div>
+  <!-- </div> -->
 </body>
 </html>

@@ -5,6 +5,7 @@ import pytz
 import pandas
 import mta
 from flask_cors import CORS
+from fuzzywuzzy import fuzz
 
 app = Flask(__name__)
 CORS(app)
@@ -120,23 +121,37 @@ def epoch_to_time(time):
     tz = pytz.timezone('America/New_York')
     return datetime.fromtimestamp(time, tz).strftime('%H:%M:%S')
 
-start = ""
-end = ""
+locations = {"start":"", "end":""}
 @app.route('/autofill')
 def station():
-   start = request.args.get("start")
-   resp_type = request.args.get("type")
-   if resp_type == "start":
-       start = start;
-   else:
-       end = end;
-#    print(start)
-   return start
+    param = request.args.get("start")
+    resp_type = request.args.get("type")
+    if resp_type == "start":
+        locations["start"] = fuzziest_station(param);
+    else:
+        locations["end"] = fuzziest_station(param);
+    print(param)
+    return param
 
 @app.route("/locations")
 def get_locations():
-    loc = {"start": start, "end": end}
-    return jsonify(loc)
+    # print(start, end)
+    # print(locations)
+    # loc = {"start": start, "end": end}
+    return jsonify(locations)
+
+def fuzziest_station(street_name):
+    print("Street:",street_name)
+    data = pandas.read_csv("Stations.csv")
+    fuzziest = 0
+    stop_id = ""
+    for index, row in data.iterrows():
+        fuzz_ratio = fuzz.ratio(street_name, row["Stop Name"])
+        if fuzz_ratio > fuzziest:
+            fuzziest = fuzz_ratio
+            stop_id = getattr(row, "GTFS Stop ID")
+    return stop_id
+
 
 if __name__ == "__main__":
     app.run(debug=True)
@@ -171,3 +186,4 @@ line_feeds = {
 }
 def get_line_feed(stop_id):
     return line_feeds[stop_id]
+

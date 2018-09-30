@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Global } from "../global";
 import { HttpClient } from '@angular/common/http';
 import { Router } from "@angular/router";
+import { Outside } from "../../outside";
 
 @Component({
     selector: 'app-status',
@@ -13,13 +14,29 @@ export class StatusComponent implements OnInit {
     data = [];
     constructor(private http: HttpClient, private router: Router) { }
     tokens = 0;
-
+    showInputs = true;
+    start_html = "";
+    end_html = "";
     ngOnInit() {
+        // this.start_html = document.querySelector("#start").innerHTML;
+        // this.end_html = document.querySelector("#end").innerHTML;
+        this.end_html = document.getElementsByClassName("end")[0].innerHTML;
+        this.start_html = document.getElementsByClassName("start")[0].innerHTML;
+        document.getElementsByClassName("end")[0].innerHTML = "";
+        document.getElementsByClassName("start")[0].innerHTML = "";
         this.tokens = Global.tokens;
         console.log("Sending feed id:", Global.line_feeds[Global.train]);
         console.log("Sending station id:", Global.origin);
         // Initialize data with objects of keys: predicted, scheculed, and difference
         this.data = Global.data.slice(0);
+        this.showInputs = false;
+    }
+    goBack() {
+        // document.querySelector("#start").innerHTML = this.start_html;
+        // document.querySelector("#end").innerHTML = this.end_html;
+        document.getElementsByClassName("end")[0].innerHTML = this.end_html;
+        document.getElementsByClassName("start")[0].innerHTML = this.start_html;
+        this.router.navigate(["/home"]);
     }
     test() {
         console.log("Hello world");

@@ -20,7 +20,10 @@ export class HomeComponent implements OnInit {
     destination = "";
     train = "Train"
     tokens = 0;
-    submit() {
+    async submit() {
+        let locations = await this.http.get("http://localhost:5000/locations").toPromise();
+        this.origin = locations["start"]
+        this.destination = locations["end"]
         Global.tokens--;
         this.tokens = Global.tokens;
         // Basic form validation
