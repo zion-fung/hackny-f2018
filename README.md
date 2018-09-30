@@ -4,7 +4,7 @@
 
 ## ReadMe:
 
-# Subwaze. Waze for Subways
+# Underwaze. Waze for Subways. Subwaze.
 
   Originally, the focus of this group was to solve the lackluster result queries when searching for an apartment; however, we realize that the underlying problem we could focus on was subway systems, how they work, how data is updated, and user input to fill in the gaps. At this point, we discovered the same as Waze as the most real-time data you could get would be from three sources:  
         * MTA's Real Time Travel Analysis  
